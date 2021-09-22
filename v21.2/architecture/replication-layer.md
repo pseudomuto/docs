@@ -73,7 +73,7 @@ CockroachDB attempts to elect a leaseholder who is also the Raft group leader, w
 
 If there is no leaseholder, any node receiving a request will attempt to become the leaseholder for the range. To prevent two nodes from acquiring the lease, the requester includes a copy of the last valid lease it had; if another node became the leaseholder, its request is ignored.
 
-When serving strongly-consistent (a.k.a. "non-stale") reads, leaseholders bypass Raft; for the leaseholder's writes to have been committed in the first place, they must have already achieved consensus, so a second consensus on the same data is unnecessary. This has the benefit of not incurring networking round trips required by Raft and greatly increases the speed of reads (without sacrificing consistency).
+When serving [strongly-consistent (a.k.a. "non-stale") reads](transaction-layer.html#reading), leaseholders bypass Raft; for the leaseholder's writes to have been committed in the first place, they must have already achieved consensus, so a second consensus on the same data is unnecessary. This has the benefit of not incurring networking round trips required by Raft and greatly increases the speed of reads (without sacrificing consistency).
 
 #### Co-location with Raft leadership
 
